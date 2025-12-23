@@ -1,0 +1,22 @@
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'menu/home.html')
+
+def about(request):
+    return render(request, 'menu/about.html')
+
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/accounts/login/")
+
+    else:
+        form = UserCreationForm()
+
+    return render(request, "menu/signup.html", {"form": form})

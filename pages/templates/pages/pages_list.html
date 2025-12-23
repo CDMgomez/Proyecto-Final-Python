@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>🍔 Menú de la Sanguchería</h1>
+
+<div class="row">
+{% for producto in productos %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">{{ producto.descripcion }}</p>
+                <p><strong>${{ producto.precio }}</strong></p>
+
+                <a href="{% url 'page_detail' producto.id %}" class="btn btn-primary btn-sm">Ver</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'producto_editar' producto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'producto_borrar' producto.id %}" class="btn btn-danger btn-sm">Borrar</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
+

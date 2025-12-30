@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Conversación con {{ other.username }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Conversación con {{ other.username }}</h4>
+  <a class="btn btn-sm btn-primary" href="{% url 'chat:send' %}">Enviar mensaje</a>
+</div>
+
+<div class="list-group">
+  {% for m in messages %}
+    {% if m.sender == user %}
+      <div class="list-group-item list-group-item-primary text-end">
+        <div><small class="text-muted">Tu — {{ m.timestamp }}</small></div>
+        <div>{{ m.content }}</div>
+      </div>
+    {% else %}
+      <div class="list-group-item">
+        <div><strong>{{ m.sender.username }}</strong> <small class="text-muted">— {{ m.timestamp }}</small></div>
+        <div>{{ m.content }}</div>
+      </div>
+    {% endif %}
+  {% empty %}
+    <p>No hay mensajes entre ambos.</p>
+  {% endfor %}
+</div>
+
+<a href="{% url 'chat:inbox' %}" class="btn btn-secondary mt-3">Volver al inbox</a>
+{% endblock %}

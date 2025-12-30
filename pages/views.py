@@ -2,6 +2,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Producto
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 
 class PagesListView(ListView):
     model = Producto
@@ -13,23 +15,32 @@ class PageDetailView(DetailView):
     template_name = "pages/page_detail.html"
     context_object_name = "producto"
 
-class ProductoCreateView(LoginRequiredMixin, CreateView):
+class ProductoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Producto
     fields = ['nombre', 'categoria', 'descripcion', 'precio', 'imagen']
     template_name = 'pages/producto_form.html'
     success_url = reverse_lazy('pages_list')
 
-class ProductoUpdateView(LoginRequiredMixin, UpdateView):
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class ProductoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Producto
     fields = ['nombre', 'categoria', 'descripcion', 'precio', 'imagen']
     template_name = 'pages/producto_form.html'
     success_url = reverse_lazy('pages_list')
 
-class ProductoDeleteView(LoginRequiredMixin, DeleteView):
+    def test_func(self):
+        return self.request.user.is_staff
+
+class ProductoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Producto
-    template_name = 'pages/producto_confirm_delete.html'  # Crea este template si no existe
+    template_name = 'pages/producto_confirm_delete.html'
     success_url = reverse_lazy('pages_list')
 
+    def test_func(self):
+        return self.request.user.is_staff
 
 
 

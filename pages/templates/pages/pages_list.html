@@ -5,7 +5,7 @@
 
 <div class="row">
 {% for producto in productos %}
-    <div class="col-md-4 mb-4">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="card h-100">
             {% if producto.imagen %}
                 <img src="{{ producto.imagen.url }}" class="card-img-top">
@@ -17,10 +17,11 @@
 
                 <a href="{% url 'page_detail' producto.id %}" class="btn btn-primary btn-sm">Ver</a>
 
-                {% if user.is_authenticated %}
-                    <a href="{% url 'producto_editar' producto.id %}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{% url 'producto_borrar' producto.id %}" class="btn btn-danger btn-sm">Borrar</a>
-                {% endif %}
+                {% if user.is_staff %}
+    <a href="{% url 'producto_editar' producto.id %}" class="btn btn-warning btn-sm">Editar</a>
+    <a href="{% url 'producto_borrar' producto.id %}" class="btn btn-danger btn-sm">Borrar</a>
+{% endif %}
+
             </div>
         </div>
     </div>

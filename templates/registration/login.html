@@ -1,18 +1,39 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h2>Iniciar sesión</h2>
+{% block title %}Login{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Entrar</button>
-</form>
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
 
-</body>
-</html>
+      <div class="card shadow">
+        <div class="card-body">
+
+          <h3 class="text-center mb-4">Iniciar sesión 🍔</h3>
+
+          <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label class="form-label">Usuario</label>
+              {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              {{ form.password }}
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">
+              Entrar
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

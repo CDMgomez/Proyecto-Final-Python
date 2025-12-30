@@ -51,17 +51,7 @@ Por este motivo, el desarrollo de esta aplicación se encuentra alineado con la 
 - HTML
 - CSS
 - Bootstrap
-- SQLite
 
----
 
-## ▶️ Ejecución del proyecto
 
-1. Clonar el repositorio
-2. Crear y activar un entorno virtual
-3. Instalar dependencias
-4. Ejecutar migraciones
-5. Iniciar el servidor
 
-```bash
-python manage.py runserver
